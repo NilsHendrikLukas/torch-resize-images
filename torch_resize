@@ -6,7 +6,6 @@ import os
 import argparse
 
 from src.resize_image import resize_images_parallel
-from src.util import reserve_gpu
 
 
 def parse_args():
@@ -24,7 +23,6 @@ def parse_args():
                         default=1)
     parser.add_argument('--no-center-crop', action='store_false', default=False)
     parser.add_argument('--overwrite', action='store_true', default=False)
-    parser.add_argument("--gpu", help="Which GPU to run on. If none is provided, least active will be chosen. ")
 
     return parser.parse_args()
 
@@ -32,8 +30,6 @@ def parse_args():
 def main():
     args = parse_args()
     print(f"Resize Images: {args}")
-
-    reserve_gpu(args.gpu)
 
     if not os.path.isdir(args.output_dir):
         os.mkdir(args.output_dir)

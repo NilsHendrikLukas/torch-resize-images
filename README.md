@@ -1,46 +1,41 @@
-# Torch Resize Images
-
-An easy-to-use, command line tool for resizing and center-cropping images using PyTorch.
+# Resize Images using PyTorch
 
 
-**Tested for:** 
+This package allows resizing images from the command line using PyTorch. 
 
-``
-python=3.7
-``
+## Dependencies
 
-**Install:**
+- Python 3.4++
+- gputil 1.4.0
+- tqdm 4.59.0
+- torchvision 0.9.0
+- torch 1.8.0
+- Pillow 2.7++
 
-`
-git clone https://github.com/NilsHendrikLukas/torch-resize-images  
-`
+## Installation
 
-`
-cd torch-resize-images  
-`
+Install torch-resize-images using pip:
 
-`
-pip -r install requirements.txt  
-`
-
-
-**Usage:**
-
-`
-python resize_images.py --root <path_to_images> --output_dir <path_to_output> 
-`
+```
+pip install torch-resize-images
+```
 
 
-**Optional Parameters:**
+## Usage
 
-[--width] Output image width. Default: 224
+Given images in some `<input_dir>`, the following line first resizes and then center-crops all 
+images to the size 224x224. 
 
-[--height] Output image height. Default: 224
+```
+torch_resize -r <input_dir> -o <output_dir> --width 224 --height 224
+```
 
-[--no-center-crop] Do not center crop the image to the desired width and height. 
+You can speed up processing by running multiple processes in parallel using the `-n` flag.
+This defaults to 1 and is limited by your system memory. 
 
-[-n, --n_procs] Number of parallel processes to run. Default: 1  
+```
+torch_resize -r <input_dir> -o <output_dir> --width 224 --height 224 -n 8
+```
 
-[--overwrite] Overwrite the output file if it exists. Default: True
-
-[--gpu] Specify the GPU index. If none is specified, the GPU with the most available memory is automatically chosen.
+## Example
+![Alt text](./images/resize.png "Example File")
