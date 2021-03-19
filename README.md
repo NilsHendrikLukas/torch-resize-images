@@ -1,7 +1,7 @@
 # Resize Images using PyTorch
 
 
-This package allows resizing images from the command line using PyTorch. 
+This package allows resizing images *quickly* from the command line using PyTorch. 
 
 ## Dependencies
 
@@ -20,6 +20,8 @@ Install torch-resize-images using pip:
 pip install torch-resize-images
 ```
 
+## Example
+![Alt text](./images/resize.png "Example File")
 
 ## Usage
 
@@ -37,5 +39,8 @@ This defaults to 1 and is limited by your system memory.
 torch-resize -r <input_dir> -o <output_dir> --width 224 --height 224 -n 8
 ```
 
-## Example
-![Alt text](./images/resize.png "Example File")
+For more parameters and their explanation run the following line. 
+
+```
+torch-resize -h
+```
