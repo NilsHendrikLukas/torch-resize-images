@@ -29,7 +29,8 @@ pip -r install requirements.txt
 python resize_images.py --root <path_to_images> --output_dir <path_to_output> 
 `
 
-**Optional Parameters: **
+
+**Optional Parameters:**
 
 [--width] Output image width. Default: 224
 
