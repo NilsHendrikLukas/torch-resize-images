@@ -8,8 +8,8 @@ This package allows resizing images with high throughput from the command line u
 - Python 3.4++
 - gputil 1.4.0
 - tqdm 4.59.0
-- torchvision 0.9.0
-- torch 1.8.0
+- torchvision 0.9.0++
+- torch 1.0.0++
 - Pillow 2.7++
 
 ## Installation
