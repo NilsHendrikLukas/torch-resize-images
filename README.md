@@ -27,14 +27,14 @@ Given images in some `<input_dir>`, the following line first resizes and then ce
 images to the size 224x224. 
 
 ```
-torch_resize -r <input_dir> -o <output_dir> --width 224 --height 224
+torch-resize -r <input_dir> -o <output_dir> --width 224 --height 224
 ```
 
 You can speed up processing by running multiple processes in parallel using the `-n` flag.
 This defaults to 1 and is limited by your system memory. 
 
 ```
-torch_resize -r <input_dir> -o <output_dir> --width 224 --height 224 -n 8
+torch-resize -r <input_dir> -o <output_dir> --width 224 --height 224 -n 8
 ```
 
 ## Example

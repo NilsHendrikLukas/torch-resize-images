@@ -10,10 +10,11 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='torch-resize-images',
-    version='0.1.3',
+    version='0.1.5',
     description='A Python library to resize images using PyTorch',
     url='https://github.com/NilsHendrikLukas/torch-resize-images',
     author='Nils Lukas',
+    long_description=long_description,
     author_email='nlukas@uwaterloo.ca',
     scripts=["./torch_resize"],
     license='MIT',
