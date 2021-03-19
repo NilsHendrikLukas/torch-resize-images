@@ -1,7 +1,4 @@
-""" Script to resize images using PyTorch.
-"""
 import os
-import argparse
 from math import ceil, floor
 from multiprocessing.context import Process
 
@@ -12,54 +9,6 @@ from torchvision import transforms
 from torchvision.utils import save_image
 
 from tqdm import tqdm
-import GPUtil as GPUtil
-
-
-def parse_args():
-    """Parses cmd arguments."""
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-r", "--root", type=str, required=True,
-                        help="Path to the input directory.")
-    parser.add_argument("-o", "--output_dir", type=str, required=True,
-                        help="Path to the input directory.")
-    parser.add_argument("--width", type=int,
-                        default=224)
-    parser.add_argument("--height", type=int,
-                        default=224)
-    parser.add_argument('-n', "--n_procs", type=int,
-                        default=1)
-    parser.add_argument('--no-center-crop', action='store_false', default=False)
-    parser.add_argument('--overwrite', action='store_true', default=False)
-    parser.add_argument("--gpu", help="Which GPU to run on. If none is provided, least active will be chosen. ")
-
-    return parser.parse_args()
-
-
-def pick_gpu():
-    """
-    Picks a GPU with the least memory load.
-    :return:
-    """
-    try:
-        gpu = GPUtil.getFirstAvailable(order='memory', maxLoad=2, maxMemory=0.8, includeNan=False,
-                                       excludeID=[], excludeUUID=[])[0]
-        return gpu
-    except Exception as e:
-        print(e)
-        return "0"
-
-
-def reserve_gpu(mode_or_id):
-    """ Chooses a GPU.
-    If None, uses the GPU with the least memory load.
-    """
-    if mode_or_id:
-        gpu_id = mode_or_id
-        os.environ["CUDA_VISIBLE_DEVICES"] = mode_or_id
-    else:
-        gpu_id = str(pick_gpu())
-        os.environ["CUDA_VISIBLE_DEVICES"] = gpu_id
-    print(f"Selecting GPU id {gpu_id}")
 
 
 class ResizeInputDataset(Dataset):
@@ -130,24 +79,3 @@ def resize_images_parallel(input_folder: str, output_folder: str, overwrite: boo
     for p in processes:
         p.join()
     print("Done Resizing!")
-
-
-def main():
-    args = parse_args()
-    print(f"Resize Images: {args}")
-
-    reserve_gpu(args.gpu)
-
-    if not os.path.isdir(args.output_dir):
-        os.mkdir(args.output_dir)
-
-    resize_images_parallel(args.root, output_folder=args.output_dir, overwrite=args.overwrite, n_procs=args.n_procs,
-                           resize_kwargs={
-                               "width": args.width,
-                               "height": args.height,
-                               "center_crop": not args.no_center_crop
-                           })
-
-
-if __name__ == "__main__":
-    main()

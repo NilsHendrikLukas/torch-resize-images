@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+""" Script to resize images using PyTorch.
+"""
+
+import os
+import argparse
+
+from src.resize_image import resize_images_parallel
+from src.util import reserve_gpu
+
+
+def parse_args():
+    """Parses cmd arguments."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-r", "--root", type=str, required=True,
+                        help="Path to the input directory.")
+    parser.add_argument("-o", "--output_dir", type=str, required=True,
+                        help="Path to the input directory.")
+    parser.add_argument("--width", type=int,
+                        default=224)
+    parser.add_argument("--height", type=int,
+                        default=224)
+    parser.add_argument('-n', "--n_procs", type=int,
+                        default=1)
+    parser.add_argument('--no-center-crop', action='store_false', default=False)
+    parser.add_argument('--overwrite', action='store_true', default=False)
+    parser.add_argument("--gpu", help="Which GPU to run on. If none is provided, least active will be chosen. ")
+
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    print(f"Resize Images: {args}")
+
+    reserve_gpu(args.gpu)
+
+    if not os.path.isdir(args.output_dir):
+        os.mkdir(args.output_dir)
+
+    resize_images_parallel(args.root, output_folder=args.output_dir, overwrite=args.overwrite, n_procs=args.n_procs,
+                           resize_kwargs={
+                               "width": args.width,
+                               "height": args.height,
+                               "center_crop": not args.no_center_crop
+                           })
+
+
+if __name__ == "__main__":
+    main()
