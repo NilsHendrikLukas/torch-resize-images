@@ -58,9 +58,8 @@ def resize_images(input_folder: str, output_folder: str, overwrite: bool, resize
     ds = ResizeInputDataset(root=input_folder, transform=compose_transformations(**resize_kwargs), split=split)
 
     for img, img_name in tqdm(ds, desc="Resizing Images", disable=index != 0):
-        if os.path.exists(os.path.join(output_folder, img_name)):
-            if overwrite:
-                save_image(img, os.path.join(output_folder, img_name))
+        if not os.path.exists(os.path.join(output_folder, img_name)) or overwrite:
+            save_image(img, os.path.join(output_folder, img_name))
 
 
 def resize_images_parallel(input_folder: str, output_folder: str, overwrite: bool, n_procs: int, resize_kwargs: dict):

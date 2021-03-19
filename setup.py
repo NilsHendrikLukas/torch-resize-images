@@ -10,7 +10,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='torch-resize-images',
-    version='0.1.6',
+    version='0.1.7',
     description='A Python library to resize images using PyTorch',
     url='https://github.com/NilsHendrikLukas/torch-resize-images',
     author='Nils Lukas',
@@ -20,5 +20,5 @@ setup(
     license='MIT',
     keywords='resize image pytorch',
     packages=find_packages(),
-    install_requires=['Pillow>=5.1.0', 'torch', 'torchvision', 'gputil', 'tqdm']
+    install_requires=['Pillow', 'torch', 'torchvision',  'tqdm']
 )
