@@ -19,8 +19,8 @@ pip install torch-resize-images
 
 ## Usage
 
-Given images in some `<input_dir>`, the following line first resizes and then center-crops all 
-images to the size 224x224. 
+Given images in some `<input_dir>`, the following line first resizes, then center-crops all 
+images to the size 224x224 and finally stores them under their original name in the output directory. 
 
 ```
 torch-resize -r <input_dir> -o <output_dir> --width 224 --height 224
